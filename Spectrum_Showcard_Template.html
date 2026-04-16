@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Showcard — Molecule Documentation · Spectrum Video DS 2.0</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+  :root {
+    --bg:        #060B14;
+    --bg2:       #0A1120;
+    --bg3:       #0F172A;
+    --border:    #2A2A38;
+    --border2:   #383848;
+    --text:      #E8E8F0;
+    --text2:     #9090A8;
+    --text3:     #5A5A72;
+    --purple:    #7B5CEA;
+    --purple-lt: #9B7CFF;
+    --purple-bg: #1C1630;
+    --green:     #34C77A;
+    --green-bg:  #0D2018;
+    --amber:     #F0A030;
+    --amber-bg:  #201508;
+    --red:       #E05050;
+    --red-bg:    #200D0D;
+    --blue:      #4A9EFF;
+    --blue-bg:   #0A1828;
+    --mono:      'IBM Plex Mono', monospace;
+    --sans:      'IBM Plex Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── Layout ── */
+  .layout { display: flex; min-height: 100vh; }
+
+  nav {
+    width: 220px;
+    min-width: 220px;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .nav-logo {
+    padding: 0 20px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .nav-logo-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--purple);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .nav-logo-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .nav-section {
+    padding: 4px 20px;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--text3);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin: 16px 0 4px;
+  }
+
+  nav a {
+    display: block;
+    padding: 6px 20px;
+    font-size: 13px;
+    color: var(--text2);
+    text-decoration: none;
+    transition: color .15s, background .15s;
+    border-left: 2px solid transparent;
+  }
+  nav a:hover { color: var(--text); background: var(--bg3); }
+  nav a.active { color: var(--purple-lt); border-left-color: var(--purple); background: var(--purple-bg); }
+
+  main {
+    flex: 1;
+    max-width: 900px;
+    padding: 48px 56px 80px;
+    overflow-x: hidden;
+  }
+
+  /* ── Doc header ── */
+  .doc-eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--purple);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .doc-title {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -.02em;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .doc-desc {
+    font-size: 15px;
+    color: var(--text2);
+    line-height: 1.7;
+    max-width: 620px;
+    margin-bottom: 24px;
+  }
+
+  .status-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: .04em;
+  }
+  .badge-purple { background: var(--purple-bg); color: var(--purple-lt); }
+  .badge-green  { background: var(--green-bg);  color: var(--green); }
+  .badge-amber  { background: var(--amber-bg);  color: var(--amber); }
+  .badge-blue   { background: var(--blue-bg);   color: var(--blue); }
+
+  /* ── Section structure ── */
+  .section {
+    margin-bottom: 56px;
+    scroll-margin-top: 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    min-width: 24px;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -.01em;
+  }
+
+  p { color: var(--text2); line-height: 1.7; margin-bottom: 12px; }
+
+  /* ── Rule callout ── */
+  .rule {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--purple);
+    padding: 14px 16px;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .rule strong { color: var(--purple-lt); font-weight: 500; }
+
+  /* ── Anatomy diagram ── */
+  .anatomy-wrap {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 32px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .anatomy-card {
+    width: 280px;
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto 24px;
+    background: #1C1C2C;
+    box-shadow: 0 0 0 1px var(--border2);
+  }
+
+  .anatomy-art {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0D2040 0%, #1A0840 100%);
+  }
+  .anatomy-scrim {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 55%;
+    background: linear-gradient(to top, rgba(0,0,0,.85) 0%, transparent 100%);
+  }
+  .anatomy-badge-live {
+    position: absolute; top: 8px; left: 8px;
+    background: #E03030;
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 500;
+    padding: 2px 6px;
+    border-radius: 3px;
+    letter-spacing: .06em;
+  }
+  .anatomy-badge-4k {
+    position: absolute; top: 8px; right: 8px;
+    background: rgba(255,255,255,.12);
+    color: rgba(255,255,255,.7);
+    font-family: var(--mono);
+    font-size: 8px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid rgba(255,255,255,.2);
+  }
+  .anatomy-logo {
+    position: absolute; bottom: 32px; left: 10px;
+    width: 52px; height: 14px;
+    background: rgba(255,255,255,.9);
+    border-radius: 2px;
+  }
+  .anatomy-eyebrow {
+    position: absolute; bottom: 20px; left: 10px;
+    font-size: 7px;
+    color: rgba(255,255,255,.5);
+    font-family: var(--mono);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .anatomy-title {
+    position: absolute; bottom: 8px; left: 10px; right: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,.95);
+    line-height: 1.3;
+  }
+  .anatomy-progress {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: rgba(255,255,255,.15);
+  }
+  .anatomy-progress-fill {
+    height: 100%; width: 40%;
+    background: var(--purple);
+  }
+  .anatomy-focus {
+    position: absolute; inset: -3px;
+    border: 2.5px solid #4A9EFF;
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  /* callout numbers */
+  .callout-num {
+    position: absolute;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--purple);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    cursor: default;
+    z-index: 10;
+    box-shadow: 0 0 0 2px var(--bg3);
+  }
+
+  .anatomy-key {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .anatomy-key-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: var(--bg2);
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  .key-num {
+    min-width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--purple-bg);
+    color: var(--purple-lt);
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--purple);
+    flex-shrink: 0;
+  }
+  .key-label { font-size: 12px; font-weight: 500; color: var(--text); }
+  .key-desc  { font-size: 11px; color: var(--text2); line-height: 1.4; }
+
+  /* ── Variants grid ── */
+  .variants-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+    align-items: start;
+  }
+
+  .variant-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color .2s;
+  }
+  .variant-card:hover { border-color: var(--purple); }
+  .variant-card.selected { border-color: var(--purple); box-shadow: 0 0 0 1px var(--purple); }
+
+  .variant-preview {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+  }
+  .variant-label {
+    padding: 8px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text2);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .variant-label span { font-family: var(--mono); font-size: 9px; color: var(--text3); }
+
+  /* variant preview art styles */
+  .vp-flyout { background: linear-gradient(135deg, #0D2040 0%, #1A1040 100%); }
+  .vp-overlay { background: linear-gradient(135deg, #102030 0%, #0D1828 100%); }
+  .vp-movie   { background: linear-gradient(180deg, #0A1020 0%, #1A0820 100%); aspect-ratio: 2/3; }
+  .vp-network { background: #071020; display: flex; align-items: center; justify-content: center; }
+  .vp-app     { background: #071020; display: flex; align-items: center; justify-content: center; aspect-ratio: 1/1; }
+  .vp-banner  { background: linear-gradient(90deg, #0D2040 0%, #1A0828 100%); }
+
+  .network-logo-mock {
+    width: 48px; height: 28px;
+    background: rgba(255,255,255,.12);
+    border-radius: 4px;
+  }
+  .app-icon-mock {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #4A2090, #8040E0);
+    border-radius: 8px;
+  }
+
+  /* ── States grid ── */
+  .states-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .state-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .state-preview {
+    aspect-ratio: 16/9;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1A2040 0%, #2A1840 100%);
+  }
+  .state-label-row {
+    padding: 7px 9px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text2);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .state-token {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--purple);
+  }
+
+  /* state overlays */
+  .state-overlay-focus {
+    position: absolute; inset: -2px;
+    border: 2.5px solid #4A9EFF;
+    border-radius: 9px;
+  }
+  .state-overlay-dim {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,.45);
+  }
+  .state-overlay-live {
+    position: absolute; top: 6px; left: 6px;
+    background: #E03030;
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 7px;
+    font-weight: 500;
+    padding: 2px 5px;
+    border-radius: 3px;
+    display: flex; align-items: center; gap: 3px;
+  }
+  .live-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #fff;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  .state-overlay-rec {
+    position: absolute; top: 6px; left: 6px;
+    background: rgba(0,0,0,.6);
+    color: #E05050;
+    font-family: var(--mono);
+    font-size: 7px;
+    font-weight: 500;
+    padding: 2px 5px;
+    border-radius: 3px;
+    border: 1px solid #E05050;
+    display: flex; align-items: center; gap: 3px;
+  }
+  .rec-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #E05050;
+  }
+  .state-overlay-progress {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: rgba(255,255,255,.15);
+  }
+  .state-overlay-progress-fill {
+    height: 100%; width: 55%;
+    background: #4A9EFF;
+  }
+  .state-overlay-expiry {
+    position: absolute; bottom: 6px; left: 6px; right: 6px;
+    background: rgba(240,160,48,.18);
+    border: 1px solid rgba(240,160,48,.4);
+    color: #F0A030;
+    font-family: var(--mono);
+    font-size: 7px;
+    padding: 3px 6px;
+    border-radius: 3px;
+  }
+  .state-text-scrim {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 100%);
+  }
+  .state-title-mock {
+    position: absolute; bottom: 8px; left: 8px; right: 8px;
+    height: 7px;
+    background: rgba(255,255,255,.25);
+    border-radius: 2px;
+  }
+
+  /* ── Sub-components table ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    margin-bottom: 20px;
+    display: block;
+    overflow-x: auto;
+  }
+  thead th {
+    background: var(--bg2);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 9px 12px;
+    text-align: left;
+    border: 1px solid var(--border);
+  }
+  tbody td {
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+  tbody tr:nth-child(even) td { background: var(--bg2); }
+  .td-name { font-weight: 500; color: var(--text); font-family: var(--mono); font-size: 12px; }
+  .td-atom { font-family: var(--mono); font-size: 11px; color: var(--blue); }
+  .td-req  { font-family: var(--mono); font-size: 11px; font-weight: 500; }
+  .req-yes   { color: var(--green); }
+  .req-no    { color: var(--text3); }
+  .req-cond  { color: var(--amber); }
+
+  /* ── Token table ── */
+  .token-table { font-size: 12px; }
+  .token-name {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--purple-lt);
+  }
+  .token-value {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text2);
+  }
+  .token-swatch {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-right: 5px;
+    border: 1px solid rgba(255,255,255,.1);
+  }
+  .platform-pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--border2);
+    color: var(--text3);
+    margin: 1px;
+  }
+  .p-tv  { border-color: #4A9EFF44; color: var(--blue); }
+  .p-mob { border-color: #34C77A44; color: var(--green); }
+  .p-roku{ border-color: #F0A03044; color: var(--amber); }
+
+  /* ── Do / Don't ── */
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .do-card, .dont-card {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .do-preview, .dont-preview {
+    aspect-ratio: 16/7;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+  }
+  .do-label, .dont-label {
+    padding: 8px 12px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .do-label { background: var(--green-bg); color: var(--green); border-top: 1px solid rgba(52,199,122,.2); }
+  .dont-label { background: var(--red-bg); color: var(--red); border-top: 1px solid rgba(224,80,80,.2); }
+  .do-label strong, .dont-label strong {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .mock-card-sm {
+    width: 72px;
+    aspect-ratio: 16/9;
+    border-radius: 5px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1A2040, #2A1840);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .mock-text-line {
+    height: 6px; border-radius: 2px;
+    background: rgba(255,255,255,.15);
+    margin-bottom: 4px;
+  }
+  .mock-title-block { padding: 6px 0; flex: 1; }
+
+  /* ── Keyboard table ── */
+  .key-badge {
+    display: inline-block;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text);
+    margin: 1px;
+  }
+
+  /* ── Platform table ── */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .platform-tile {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .platform-tile-name {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text3);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .platform-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+    font-size: 11px;
+  }
+  .platform-row-key { color: var(--text3); }
+  .platform-row-val { font-family: var(--mono); font-size: 11px; color: var(--text); }
+
+  /* ── Specs section ── */
+  .spec-diagram {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    position: relative;
+    min-height: 200px;
+  }
+
+  .spec-card-mock {
+    width: 260px;
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1A2040, #2A1840);
+    position: relative;
+  }
+  .spec-scrim {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0,0,0,.8), transparent);
+    border-radius: 0 0 8px 8px;
+  }
+  .spec-annotation {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--amber);
+    white-space: nowrap;
+  }
+  .spec-line {
+    position: absolute;
+    background: rgba(240,160,48,.3);
+  }
+
+  /* ── Divider ── */
+  hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    nav { display: none; }
+    main { padding: 32px 24px; }
+    .variants-grid { grid-template-columns: repeat(2, 1fr); }
+    .states-grid { grid-template-columns: repeat(2, 1fr); }
+    .platform-grid { grid-template-columns: repeat(2, 1fr); }
+    .do-dont { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ── Sidebar nav ── -->
+  <nav>
+    <div class="nav-logo">
+      <span class="nav-logo-tag">Spectrum Video DS 2.0</span>
+      <span class="nav-logo-title">Component Library</span>
+    </div>
+    <div class="nav-section">Molecules</div>
+    <a href="#overview" class="active">Showcard</a>
+    <a href="#anatomy" style="padding-left:32px;font-size:12px">Anatomy</a>
+    <a href="#variants" style="padding-left:32px;font-size:12px">Variants</a>
+    <a href="#states" style="padding-left:32px;font-size:12px">States</a>
+    <a href="#subcomponents" style="padding-left:32px;font-size:12px">Sub-components</a>
+    <a href="#usage" style="padding-left:32px;font-size:12px">Usage</a>
+    <a href="#platform" style="padding-left:32px;font-size:12px">Platform behavior</a>
+    <a href="#tokens" style="padding-left:32px;font-size:12px">Tokens</a>
+    <a href="#accessibility" style="padding-left:32px;font-size:12px">Accessibility</a>
+    <a href="#specs" style="padding-left:32px;font-size:12px">Specs</a>
+    <a href="#content" style="padding-left:32px;font-size:12px">Content guidelines</a>
+    <a href="#related" style="padding-left:32px;font-size:12px">Related components</a>
+    <a href="#">Text Lockup</a>
+    <a href="#">List Item</a>
+    <a href="#">Button Group</a>
+    <a href="#">Notification</a>
+    <a href="#">Badge</a>
+    <a href="#">Button</a>
+    <a href="#">Logo</a>
+    <a href="#">Focus Ring</a>
+    <div class="nav-section">Foundations</div>
+    <a href="#">Color</a>
+    <a href="#">Typography</a>
+    <a href="#">Spacing</a>
+    <a href="#">Iconography</a>
+  </nav>
+
+  <!-- ── Main content ── -->
+  <main>
+
+    <!-- Header -->
+    <div class="doc-eyebrow">Molecules · Cards · Deliverable 04</div>
+    <h1 class="doc-title">Showcard</h1>
+    <p class="doc-desc">The primary content tile across all Spectrum Video surfaces. Defined here as a single base component with configurable style, size, width, and DFTA type — replacing use-case-specific implementations with one semantically-sound, token-driven definition consumable by both designers and UI Node agents.</p>
+
+    <div class="status-row">
+      <span class="badge badge-amber">⬤ &nbsp;In Progress</span>
+      <span class="badge badge-purple">Molecule</span>
+      <span class="badge badge-blue">tvOS · Roku · JS/TVSDK · iOS · Android</span>
+      <span class="badge badge-green">Deliverable 04</span>
+    </div>
+
+    <!-- 1. Overview -->
+    <div class="section" id="overview">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Overview</h2>
+      </div>
+      <p>The showcard is the primary content tile used across all Spectrum Video surfaces. It appears in swimlanes, grids, guide rows, and search results. The card is composed of an image layer, an optional DFTA lockup (logo + eyebrow + title + metadata), optional left and right badges, an optional bookmark, and an optional progress bar.</p>
+      <p>Cards are named using a structured convention: <code style="font-family:var(--mono);font-size:12px;color:var(--purple-lt);background:var(--purple-bg);padding:1px 5px;border-radius:3px">card-[size]-[style]-[width]-[dfta-type]</code>. For example: <code style="font-family:var(--mono);font-size:12px;color:var(--purple-lt);background:var(--purple-bg);padding:1px 5px;border-radius:3px">card-xl-flyout-wide-allDfta-logo</code> or <code style="font-family:var(--mono);font-size:12px;color:var(--purple-lt);background:var(--purple-bg);padding:1px 5px;border-radius:3px">card-m-fill-wide-titleMetadata</code>.</p>
+      <div class="rule">
+        <strong>Style vs. variant:</strong> The card <em>style</em> (Fill, Flyout, Overlay) determines where the DFTA lockup sits relative to the art. The card <em>size</em> (XL, L, M, S) and <em>width</em> determine layout density. These are orthogonal axes — any size can use any style.
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- 2. Anatomy -->
+    <div class="section" id="anatomy">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Anatomy</h2>
+      </div>
+      <p>Numbered callouts identify each sub-part. Each callout maps to either an atom component or a Foundation token. Optional elements are shown in their default active state.</p>
+
+      <div class="anatomy-wrap">
+        <!-- Card with callout numbers — Flyout style (DFTA below image) -->
+        <div style="position:relative; width:280px; margin:0 auto 28px;">
+          <!-- Image area -->
+          <div class="anatomy-card" style="border-radius:8px 8px 0 0;overflow:visible">
+            <div class="anatomy-art"></div>
+            <!-- Left badge -->
+            <div class="anatomy-badge-live" style="top:8px;left:8px;border-radius:4px;font-size:8px;padding:2px 6px">● LIVE</div>
+            <!-- Right badge -->
+            <div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-family:var(--mono);font-size:7px;padding:2px 6px;border-radius:4px">OOH</div>
+            <!-- Bookmark -->
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.12)">
+              <div style="position:absolute;bottom:0;left:10px;width:28px;height:3px;background:rgba(123,92,234,.6);border-radius:1px"></div>
+            </div>
+            <!-- Focus ring -->
+            <div class="anatomy-focus" style="border-radius:10px 10px 0 0"></div>
+          </div>
+          <!-- DFTA panel below image -->
+          <div style="background:#0D1929;border-radius:0 0 8px 8px;padding:8px 10px 10px;border:1px solid rgba(255,255,255,.08);border-top:none;position:relative">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+              <!-- Logo circle -->
+              <div style="width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.15);flex-shrink:0"></div>
+              <div>
+                <div style="font-family:var(--mono);font-size:7px;color:#C8A84B;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1px">ESPN · Sports</div>
+                <div style="font-size:10px;font-weight:600;color:#fff;line-height:1.2">Monday Night Football</div>
+              </div>
+            </div>
+            <div style="font-size:8px;color:rgba(255,255,255,.45);margin-top:2px">TV-PG · 2024 · Drama</div>
+            <!-- Progress bar at very bottom -->
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.08);border-radius:0 0 8px 8px">
+              <div style="height:100%;width:40%;background:#4A9EFF;border-radius:0 0 0 8px"></div>
+            </div>
+          </div>
+          <!-- Callout numbers -->
+          <div class="callout-num" style="top:-8px;left:-8px">1</div>
+          <div class="callout-num" style="top:-8px;left:38px">2</div>
+          <div class="callout-num" style="top:-8px;right:24px">3</div>
+          <div class="callout-num" style="top:35%;right:-10px">4</div>
+          <div class="callout-num" style="bottom:60px;left:-10px">5</div>
+          <div class="callout-num" style="bottom:60px;left:34px">6</div>
+          <div class="callout-num" style="bottom:42px;left:34px">7</div>
+          <div class="callout-num" style="bottom:26px;left:34px">8</div>
+          <div class="callout-num" style="bottom:-8px;left:50%">9</div>
+          <div class="callout-num" style="top:-8px;right:-8px">10</div>
+        </div>
+
+        <!-- Key -->
+        <div class="anatomy-key">
+          <div class="anatomy-key-item">
+            <div class="key-num">1</div>
+            <div><div class="key-label">Image layer</div><div class="key-desc">Gracenote TMSID Iconic art (Hero / Matchup image type). Fallback: dark gradient. Aspect ratio token resolves per platform.</div></div>
+          </div>
+          <div class="anatomy-key-item">
+            <div class="key-num">2</div>
+            <div><div class="key-label">Left badge</div><div class="key-desc">Status badges: REC, LIVE, UPCOMING. Top-left corner. Atom: Badge. Driven by content state token.</div></div>
+          </div>
+          <div class="anatomy-key-item">
+            <div class="key-num">3</div>
+            <div><div class="key-label">Right badge</div><div class="key-desc">Access/metadata badges: OOH, Unentitled, Purchasable ($), Blocked, In-Market, Expiration, Express Play, Episodes. Top-right corner. Atom: Badge.</div></div>
+          </div>
+          <div class="anatomy-key-item">
+            <div class="key-num">4</div>
+            <div><div class="key-label">Bookmark</div><div class="key-desc">DVR recording or watchlist indicator. Two styles: Inset (round) and Square. Sits at bottom edge of image layer.</div></div>
+          </div>
+          <div class="anatomy-key-item">
+            <div class="key-num">5</div>
+            <div><div class="key-label">DFTA panel</div><div class="key-desc">Caption area below the image in Fill and Flyout styles. Has its own background token. Not present in Overlay (No DFTA).</div></div>
+          </div>
+          <div class="anatomy-key-item">
+            <div class="key-num">6</div>
+            <div><div class="key-label">Logo</div><div class="key-desc">Network bug, circular. Sits left of eyebrow + title in the DFTA lockup. Atom: Logo (S size).</div></div>
+          </div>
+          <div class="anatomy-key-item">
+            <div class="key-num">7</div>
+            <div><div class="key-label">Eyebrow</div><div class="key-desc">Network · Genre or time info. Amber (#C8A84B) color. All caps. Atom: Text. Optional per DFTA style.</div></div>
+          </div>
+          <div class="anatomy-key-item">
+            <div class="key-num">8</div>
+            <div><div class="key-label">Title + metadata</div><div class="key-desc">White bold title + gray metadata line below. Required in DFTA. Max 2 lines for title. Atom: Text Lockup.</div></div>
+          </div>
+          <div class="anatomy-key-item">
+            <div class="key-num">9</div>
+            <div><div class="key-label">Progress bar</div><div class="key-desc">Watch progress. Sits at bottom of DFTA panel. Conditional — Continue Watching state only. Token: color-progress-fill.</div></div>
+          </div>
+          <div class="anatomy-key-item">
+            <div class="key-num">10</div>
+            <div><div class="key-label">Focus ring</div><div class="key-desc">Ring around full card (image + DFTA panel) on focus. Cards use ring only — never fill. TV remote + web keyboard only. Never on mobile touch.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- 3. Variants -->
+    <div class="section" id="variants">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Variants</h2>
+      </div>
+      <p>There are 6 showcard styles. The <strong style="color:var(--text)">style</strong> determines where the DFTA lockup sits relative to the image. All styles share the same image layer, badge system, and bookmark atom.</p>
+
+      <div class="variants-grid" style="grid-template-columns:repeat(3,1fr);align-items:start">
+
+        <!-- Fill -->
+        <div class="variant-card selected">
+          <div class="variant-preview vp-flyout" style="border-radius:8px 8px 0 0">
+            <div style="position:absolute;top:6px;left:6px;background:#CC3030;color:#fff;font-family:var(--mono);font-size:7px;padding:1px 5px;border-radius:3px">● LIVE</div>
+          </div>
+          <div style="background:#0D1929;padding:7px 9px 9px;border-radius:0 0 8px 8px;border:1px solid rgba(255,255,255,.08);border-top:none">
+            <div style="display:flex;align-items:center;gap:5px">
+              <div style="width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.15);flex-shrink:0"></div>
+              <div>
+                <div style="font-size:7px;color:#C8A84B;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase">ESPN · Sports</div>
+                <div style="font-size:9px;font-weight:600;color:#fff">SportsCenter</div>
+              </div>
+            </div>
+            <div style="font-size:7px;color:rgba(255,255,255,.4);margin-top:2px">TV-PG · 2024</div>
+          </div>
+          <div class="variant-label">Fill <span>DFTA below, card bg</span></div>
+        </div>
+
+        <!-- Flyout -->
+        <div class="variant-card">
+          <div class="variant-preview vp-overlay" style="border-radius:8px 8px 0 0">
+            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.5) 100%)"></div>
+          </div>
+          <div style="background:#0D1929;padding:7px 9px 9px;border-radius:0 0 8px 8px;border:1px solid rgba(255,255,255,.08);border-top:none">
+            <div style="display:flex;align-items:center;gap:5px">
+              <div style="width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.15);flex-shrink:0"></div>
+              <div>
+                <div style="font-size:7px;color:#C8A84B;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase">HBO · Drama</div>
+                <div style="font-size:9px;font-weight:600;color:#fff">The Last of Us</div>
+              </div>
+            </div>
+          </div>
+          <div class="variant-label">Flyout <span>DFTA below, no card bg</span></div>
+        </div>
+
+        <!-- Overlay No DFTA -->
+        <div class="variant-card">
+          <div class="variant-preview vp-flyout">
+            <div style="position:absolute;inset:0;background:rgba(0,0,0,.35)"></div>
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:10px;font-weight:600;color:#fff;text-align:center;white-space:nowrap">Hidden Figures</div>
+          </div>
+          <div class="variant-label">Overlay (No DFTA) <span>Title centered on art</span></div>
+        </div>
+
+        <!-- Overlay DFTA -->
+        <div class="variant-card">
+          <div class="variant-preview vp-overlay">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:55%;background:linear-gradient(to top,rgba(0,0,0,.85),transparent)"></div>
+            <div style="position:absolute;bottom:8px;left:8px;right:8px">
+              <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px">
+                <div style="width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0"></div>
+                <div style="font-size:7px;color:#C8A84B;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase">NBC · Drama</div>
+              </div>
+              <div style="font-size:9px;font-weight:600;color:#fff">This Is Us</div>
+            </div>
+          </div>
+          <div class="variant-label">Overlay (DFTA) <span>DFTA overlaid on art</span></div>
+        </div>
+
+        <!-- Overlay Deluxe -->
+        <div class="variant-card">
+          <div class="variant-preview vp-flyout">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9) 0%,rgba(0,0,0,.3) 100%)"></div>
+            <div style="position:absolute;bottom:8px;left:8px;right:8px">
+              <div style="font-size:7px;color:#C8A84B;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px">HBO · Drama</div>
+              <div style="font-size:13px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:3px">House of the Dragon</div>
+              <div style="font-size:7px;color:rgba(255,255,255,.55);line-height:1.4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+              <div style="height:2px;width:60%;background:rgba(123,92,234,.7);border-radius:1px;margin-top:5px"></div>
+            </div>
+          </div>
+          <div class="variant-label">Overlay (Deluxe) <span>Large title + body text</span></div>
+        </div>
+
+        <!-- Network -->
+        <div class="variant-card">
+          <div class="variant-preview" style="aspect-ratio:3/4;background:#0D1929;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;border:1px solid rgba(255,255,255,.08);border-radius:8px 8px 0 0">
+            <div style="width:64px;height:32px;background:rgba(255,255,255,.12);border-radius:4px;margin-bottom:12px"></div>
+            <div style="width:56px;height:7px;background:#C8A84B;border-radius:2px;opacity:.6;margin-bottom:4px"></div>
+            <div style="width:70px;height:9px;background:rgba(255,255,255,.7);border-radius:2px"></div>
+          </div>
+          <div class="variant-label">Network <span>Logo + airing, portrait</span></div>
+        </div>
+
+      </div>
+      <p style="font-size:11px;color:var(--text3);margin-top:8px">Additional card types documented separately: <span style="font-family:var(--mono);color:var(--purple)">Cast</span> (actor photo, 1:1), <span style="font-family:var(--mono);color:var(--purple)">Favorite</span> (network + currently airing), <span style="font-family:var(--mono);color:var(--purple)">Action Tiles</span> (View All, DVR Gauge, Store Front, Front Door), <span style="font-family:var(--mono);color:var(--purple)">Tile</span> (Medium / Small / XS editorial tiles). DFTA types not shown here: <span style="font-family:var(--mono);color:var(--purple)">allDfta-scores</span> (live sports: team logos + live score + time), <span style="font-family:var(--mono);color:var(--purple)">allDfta-trending</span> (ranking number + live info), <span style="font-family:var(--mono);color:var(--purple)">browTitle</span> (eyebrow + title only, no metadata).</p>
+    </div>
+
+    <hr>
+
+    <!-- 4. States -->
+    <div class="section" id="states">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title">States</h2>
+      </div>
+      <p>States are separated into two categories: <strong style="color:var(--text)">interaction states</strong> (driven by user input) and <strong style="color:var(--text)">data states</strong> (driven by content conditions). Each state is driven by a Foundation token — no hard-coded values per component.</p>
+
+      <p style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin:16px 0 8px">Interaction states</p>
+      <div class="states-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="state-card">
+          <div class="state-preview">
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock"></div>
+          </div>
+          <div class="state-label-row">Default<div class="state-token">state-card-default</div></div>
+        </div>
+        <div class="state-card">
+          <div class="state-preview">
+            <div style="position:absolute;inset:0;background:rgba(255,255,255,.04)"></div>
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock"></div>
+          </div>
+          <div class="state-label-row">Hover<div class="state-token">state-card-hover</div></div>
+        </div>
+        <div class="state-card">
+          <div class="state-preview" style="transform:scale(1.04);transform-origin:center;">
+            <div class="state-overlay-focus"></div>
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock"></div>
+          </div>
+          <div class="state-label-row">Focused<div class="state-token">state-card-focused</div></div>
+        </div>
+        <div class="state-card">
+          <div class="state-preview">
+            <div style="position:absolute;inset:0;background:rgba(123,92,234,.15)"></div>
+            <div class="state-overlay-focus" style="border-color:#6AB8FF"></div>
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock"></div>
+          </div>
+          <div class="state-label-row">Active<div class="state-token">state-card-active</div></div>
+        </div>
+        <div class="state-card">
+          <div class="state-preview">
+            <div class="state-overlay-dim"></div>
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock" style="background:rgba(255,255,255,.08)"></div>
+          </div>
+          <div class="state-label-row">Disabled<div class="state-token">state-card-disabled</div></div>
+        </div>
+        <div class="state-card">
+          <div class="state-preview">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+              <div style="width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.15);border-top-color:rgba(255,255,255,.6);animation:spin 1s linear infinite"></div>
+            </div>
+          </div>
+          <div class="state-label-row">Loading<div class="state-token">state-card-loading</div></div>
+        </div>
+      </div>
+      <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+      <p style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin:16px 0 8px">Data states</p>
+      <div class="states-grid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="state-card">
+          <div class="state-preview">
+            <div class="state-overlay-live"><div class="live-dot"></div>LIVE</div>
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock"></div>
+          </div>
+          <div class="state-label-row">Live in progress<div class="state-token">state-live-in-progress</div></div>
+        </div>
+        <div class="state-card">
+          <div class="state-preview">
+            <div class="state-overlay-rec"><div class="rec-dot"></div>REC</div>
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock"></div>
+          </div>
+          <div class="state-label-row">Recorded<div class="state-token">state-recorded</div></div>
+        </div>
+        <div class="state-card">
+          <div class="state-preview">
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock"></div>
+            <div class="state-overlay-progress"><div class="state-overlay-progress-fill"></div></div>
+          </div>
+          <div class="state-label-row">Continue watching<div class="state-token">state-continue-watching</div></div>
+        </div>
+        <div class="state-card">
+          <div class="state-preview">
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock" style="bottom:18px"></div>
+            <div class="state-overlay-expiry">⏱ 24HR</div>
+          </div>
+          <div class="state-label-row">Expiring soon<div class="state-token">state-expiring-soon</div></div>
+        </div>
+        <!-- Restriction states -->
+        <div class="state-card">
+          <div class="state-preview">
+            <div style="position:absolute;inset:0;background:rgba(0,0,0,.45)"></div>
+            <div style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-family:var(--mono);font-size:7px;padding:2px 5px;border-radius:3px">🧭</div>
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock"></div>
+          </div>
+          <div class="state-label-row">Out of home<div class="state-token">state-out-of-home</div></div>
+        </div>
+        <div class="state-card">
+          <div class="state-preview">
+            <div style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-family:var(--mono);font-size:7px;padding:2px 5px;border-radius:3px">🔑</div>
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock"></div>
+          </div>
+          <div class="state-label-row">Unentitled<div class="state-token">state-unentitled</div></div>
+        </div>
+        <div class="state-card">
+          <div class="state-preview">
+            <div style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.85);font-family:var(--mono);font-size:7px;padding:2px 5px;border-radius:3px">$4.99</div>
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock"></div>
+          </div>
+          <div class="state-label-row">TVOD / Purchasable<div class="state-token">state-tvod</div></div>
+        </div>
+        <div class="state-card">
+          <div class="state-preview">
+            <div style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-family:var(--mono);font-size:7px;padding:2px 5px;border-radius:3px">🔒</div>
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock"></div>
+          </div>
+          <div class="state-label-row">Parental controls<div class="state-token">state-blocked</div></div>
+        </div>
+        <div class="state-card">
+          <div class="state-preview">
+            <div style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-family:var(--mono);font-size:8px;padding:2px 5px;border-radius:3px">📡</div>
+            <div class="state-text-scrim"></div>
+            <div class="state-title-mock"></div>
+          </div>
+          <div class="state-label-row">OTA Active / Missing<div class="state-token">state-ota</div></div>
+        </div>
+        <!-- Fallback + Loading -->
+        <div class="state-card">
+          <div class="state-preview" style="background:#001221">
+            <div style="position:absolute;bottom:0;left:0;right:0;height:55%;background:linear-gradient(to top,rgba(0,18,33,.9),transparent)"></div>
+            <div style="position:absolute;bottom:18px;left:8px;width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.15)"></div>
+            <div style="position:absolute;bottom:10px;left:26px;right:8px;height:5px;background:rgba(255,255,255,.15);border-radius:2px"></div>
+          </div>
+          <div class="state-label-row">Fallback (no art)<div class="state-token">state-fallback</div></div>
+        </div>
+        <div class="state-card" style="grid-column:span 3">
+          <div class="state-preview" style="background:#001221;aspect-ratio:auto;height:80px">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 12px">
+              <div style="width:25%;aspect-ratio:16/9;background:#001E30;border-radius:6px;flex-shrink:0"></div>
+              <div style="width:25%;aspect-ratio:16/9;background:#001E30;border-radius:6px;flex-shrink:0"></div>
+              <div style="width:25%;aspect-ratio:16/9;background:#001E30;border-radius:6px;flex-shrink:0;opacity:.6"></div>
+              <div style="width:25%;aspect-ratio:16/9;background:#001E30;border-radius:6px;flex-shrink:0;opacity:.3"></div>
+            </div>
+          </div>
+          <div class="state-label-row">Loading skeleton — solid dark (#001221), no shimmer. Focused card gets blue ring.<div class="state-token">state-loading</div></div>
+        </div>
+      </div>
+
+      <p style="font-size:11px;color:var(--text3);margin-top:10px">Restriction states (OOH, Unentitled, TVOD, Blocked) always affect the <strong style="color:var(--text)">right badge</strong> and may alter the <strong style="color:var(--text)">eyebrow copy</strong>. OOH additionally dims the art layer. These states are orthogonal — a card can be both Live and OOH simultaneously.</p>
+
+    <hr>
+
+    <!-- 5. Sub-components -->
+    <div class="section" id="subcomponents">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Sub-components &amp; Configuration</h2>
+      </div>
+      <p>Which atoms compose the showcard, whether they are required or optional, and what the card renders when they are absent.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Sub-component</th>
+            <th>Atom</th>
+            <th>Required</th>
+            <th>When absent</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-name">Image layer</td>
+            <td class="td-atom">—</td>
+            <td class="td-req req-yes">Required</td>
+            <td>Fallback: dark navy gradient (color-card-bg-fallback token)</td>
+            <td>Gracenote TMSID Iconic art. Hero or Matchup image type depending on context.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Left badge — Recording</td>
+            <td class="td-atom">Badge</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Red filled pill. "● REC" with dot icon. Appears during active DVR recording.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Left badge — 4K / HDR</td>
+            <td class="td-atom">Badge</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Blue filled pill with monitor icon. "🖥 4K" or "🖥 HDR". Driven by asset metadata.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Left badge — Live</td>
+            <td class="td-atom">Badge</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Blue filled pill with lightning bolt. "⚡ LIVE". Animated pulse dot on TV.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Left badge — Upcoming</td>
+            <td class="td-atom">Badge</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Gray outlined pill. "UPCOMING". No icon. No fill.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Left badge — Ranking</td>
+            <td class="td-atom">Badge</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Numbered circle badge (1, 2, 3…). Used in Trending Live swimlanes. Bottom-left of image.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Right badge — Out of Home</td>
+            <td class="td-atom">Badge</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Compass icon, dark circle. Art also dimmed. Eyebrow → "CONNECT TO WATCH".</td>
+          </tr>
+          <tr>
+            <td class="td-name">Right badge — Unentitled</td>
+            <td class="td-atom">Badge</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Key icon, dark circle. No art dimming. Eyebrow → "UPGRADE TO WATCH".</td>
+          </tr>
+          <tr>
+            <td class="td-name">Right badge — Purchasable</td>
+            <td class="td-atom">Badge</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Price text pill (e.g. "$19.99"), dark. Eyebrow → "AVAILABLE TO RENT". No art dimming.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Right badge — Blocked</td>
+            <td class="td-atom">Badge</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Lock icon, dark circle. Parental controls active. No art dimming, no eyebrow change.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Right badge — In-Market</td>
+            <td class="td-atom">Badge</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Location arrow icon, dark circle. Local market content indicator.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Right badge — Expiration</td>
+            <td class="td-atom">Badge</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Timer pill "⏱ 48 HR". Shows hours first, switches to minutes when under 1 hour. Eyebrow → "EXPIRES [DATE] AT [TIME]".</td>
+          </tr>
+          <tr>
+            <td class="td-name">Right badge — OTA Active / Missing</td>
+            <td class="td-atom">Badge</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Antenna icon (active) or crossed antenna (missing), dark circle. Over-the-air content status. OTA badge only — no eyebrow change.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Right badge — Episodes (DVR)</td>
+            <td class="td-atom">Badge</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Text pill "12 EPISODES". DVR series recording count. DVR context only.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Bookmark</td>
+            <td class="td-atom">—</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Two styles: Inset (round) sits at bottom edge of image; Square variant. Indicates DVR recording or watchlist status.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Scrim</td>
+            <td class="td-atom">—</td>
+            <td class="td-req req-cond">Conditional</td>
+            <td>Not rendered</td>
+            <td>Gradient overlay over art bottom. Present only in Overlay (DFTA) and Overlay (Deluxe) styles where text sits on art.</td>
+          </tr>
+          <tr>
+            <td class="td-name">DFTA panel</td>
+            <td class="td-atom">Text Lockup</td>
+            <td class="td-req req-cond">Conditional</td>
+            <td>Not rendered (Overlay No DFTA style)</td>
+            <td>Caption area. Fill: separate card background below image. Flyout: no card background. Overlay DFTA: rendered on art with scrim. Overlay Deluxe: large title + body.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Logo</td>
+            <td class="td-atom">Logo</td>
+            <td class="td-req req-no">Optional</td>
+            <td>DFTA text shifts left to fill gap</td>
+            <td>Network bug, circular, S size. Part of allDfta-logo DFTA style. Suppressed when art has embedded logo.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Eyebrow</td>
+            <td class="td-atom">Text</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Title moves up</td>
+            <td>Amber (#C8A84B). All caps. Format: NETWORK · GENRE or time info. Present in allDfta-logo and browTitle-logo styles.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Title</td>
+            <td class="td-atom">Text</td>
+            <td class="td-req req-yes">Required</td>
+            <td>Card is invalid without title</td>
+            <td>White bold. Max 2 lines, truncates with ellipsis. Font size scales with card size (M–XL).</td>
+          </tr>
+          <tr>
+            <td class="td-name">Metadata line</td>
+            <td class="td-atom">Text</td>
+            <td class="td-req req-no">Optional</td>
+            <td>Not rendered</td>
+            <td>Gray, smaller than title. Rating · Year · Genre format. Present in titleMetadata and allDfta DFTA styles.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Progress bar</td>
+            <td class="td-atom">—</td>
+            <td class="td-req req-cond">Conditional</td>
+            <td>Not rendered</td>
+            <td>Sits at bottom of DFTA panel. Continue Watching state only. Token: color-progress-fill.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Focus ring</td>
+            <td class="td-atom">Focus Ring</td>
+            <td class="td-req req-cond">Conditional</td>
+            <td>Not rendered</td>
+            <td>Wraps entire card (image + DFTA panel combined). Ring only — never fill. TV remote + web keyboard only. Never on touch.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Badge visual reference -->
+      <p style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin:20px 0 8px">Badge quick reference</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Left badges — top-left corner</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;gap:8px"><span style="background:#CC2020;color:#fff;font-family:var(--mono);font-size:9px;font-weight:500;padding:2px 7px;border-radius:10px;white-space:nowrap">● REC</span><span style="font-size:11px;color:var(--text2)">Recording — red filled pill</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="background:#1A5FA8;color:#fff;font-family:var(--mono);font-size:9px;font-weight:500;padding:2px 7px;border-radius:10px;white-space:nowrap">⚡ LIVE</span><span style="font-size:11px;color:var(--text2)">Live — blue filled pill, animated</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="background:#1A5FA8;color:#fff;font-family:var(--mono);font-size:9px;font-weight:500;padding:2px 7px;border-radius:10px;white-space:nowrap">🖥 4K</span><span style="font-size:11px;color:var(--text2)">4K — blue filled pill + monitor icon</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="background:#1A5FA8;color:#fff;font-family:var(--mono);font-size:9px;font-weight:500;padding:2px 7px;border-radius:10px;white-space:nowrap">🖥 HDR</span><span style="font-size:11px;color:var(--text2)">HDR — blue filled pill + monitor icon</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.6);font-family:var(--mono);font-size:9px;font-weight:500;padding:2px 7px;border-radius:10px;white-space:nowrap">UPCOMING</span><span style="font-size:11px;color:var(--text2)">Upcoming — outlined pill, no fill</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="background:#4A9EFF;color:#fff;font-family:var(--mono);font-size:9px;font-weight:600;width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">1</span><span style="font-size:11px;color:var(--text2)">Ranking — numbered circle, trending contexts</span></div>
+          </div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Right badges — top-right corner</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;gap:8px"><span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);font-size:10px;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">🧭</span><span style="font-size:11px;color:var(--text2)">Out of Home — art dims + "CONNECT TO WATCH"</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);font-size:10px;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">🔑</span><span style="font-size:11px;color:var(--text2)">Unentitled — "UPGRADE TO WATCH"</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="background:rgba(30,30,40,.9);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-family:var(--mono);font-size:8px;font-weight:500;padding:2px 6px;border-radius:8px;white-space:nowrap">$19.99</span><span style="font-size:11px;color:var(--text2)">Purchasable — price pill, "AVAILABLE TO RENT"</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);font-size:10px;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">🔒</span><span style="font-size:11px;color:var(--text2)">Blocked — lock icon, no eyebrow change</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="background:rgba(30,30,40,.9);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.75);font-family:var(--mono);font-size:8px;font-weight:500;padding:2px 6px;border-radius:8px;white-space:nowrap;display:flex;align-items:center;gap:3px">⏱ 48 HR</span><span style="font-size:11px;color:var(--text2)">Expiration — hours → minutes under 1 hr</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);font-size:10px;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">📡</span><span style="font-size:11px;color:var(--text2)">OTA Active / Missing — antenna icon variants</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="background:rgba(30,30,40,.9);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.75);font-family:var(--mono);font-size:7px;font-weight:500;padding:2px 6px;border-radius:8px;white-space:nowrap">12 EPISODES</span><span style="font-size:11px;color:var(--text2)">Episodes — DVR series count, pill format</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DFTA types reference -->
+      <p style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin:20px 0 8px">DFTA types quick reference</p>
+      <table style="margin-bottom:0">
+        <thead><tr><th>DFTA type</th><th>Logo</th><th>Eyebrow</th><th>Title</th><th>Metadata</th><th>Scores</th><th>Used for</th></tr></thead>
+        <tbody>
+          <tr><td class="td-name">allDfta-logo</td><td class="td-req req-yes">✓</td><td class="td-req req-yes">✓</td><td class="td-req req-yes">✓</td><td class="td-req req-yes">✓</td><td class="td-req req-no">—</td><td style="font-size:11px;color:var(--text2)">Standard shows, movies, series</td></tr>
+          <tr><td class="td-name">titleMetadata</td><td class="td-req req-no">—</td><td class="td-req req-no">—</td><td class="td-req req-yes">✓</td><td class="td-req req-yes">✓</td><td class="td-req req-no">—</td><td style="font-size:11px;color:var(--text2)">New &amp; Trending, Just For You, Watchlist</td></tr>
+          <tr><td class="td-name">browTitle-logo</td><td class="td-req req-yes">✓</td><td class="td-req req-yes">✓</td><td class="td-req req-yes">✓</td><td class="td-req req-no">—</td><td class="td-req req-no">—</td><td style="font-size:11px;color:var(--text2)">Recordings, Live News</td></tr>
+          <tr><td class="td-name">allDfta-scores</td><td class="td-req req-yes">✓</td><td class="td-req req-yes">✓</td><td class="td-req req-yes">✓</td><td class="td-req req-no">—</td><td class="td-req req-yes">✓</td><td style="font-size:11px;color:var(--text2)">Live Sports (team vs team, score, time)</td></tr>
+          <tr><td class="td-name">allDfta-trending</td><td class="td-req req-yes">✓</td><td class="td-req req-yes">✓</td><td class="td-req req-yes">✓</td><td class="td-req req-yes">✓</td><td class="td-req req-no">—</td><td style="font-size:11px;color:var(--text2)">Trending Live (with ranking badge)</td></tr>
+          <tr><td class="td-name">titleOnly (Overlay)</td><td class="td-req req-no">—</td><td class="td-req req-no">—</td><td class="td-req req-yes">✓</td><td class="td-req req-no">—</td><td class="td-req req-no">—</td><td style="font-size:11px;color:var(--text2)">Overlay (No DFTA) — centered title on art only</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr>
+
+    <!-- 6. Usage -->
+    <div class="section" id="usage">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2 class="section-title">Usage — Do &amp; Don't</h2>
+      </div>
+
+      <div class="do-dont">
+        <div class="do-card">
+          <div class="do-preview">
+            <div class="mock-card-sm">
+              <div style="position:absolute;bottom:0;left:0;right:0;height:45%;background:linear-gradient(to top,rgba(0,0,0,.8),transparent)"></div>
+              <div style="position:absolute;bottom:6px;left:5px;right:5px;height:5px;background:rgba(255,255,255,.2);border-radius:2px"></div>
+            </div>
+            <div class="mock-title-block">
+              <div class="mock-text-line" style="width:80%"></div>
+              <div class="mock-text-line" style="width:55%;opacity:.6"></div>
+            </div>
+          </div>
+          <div class="do-label"><strong>✓ DO</strong>Keep art clean. Place all text as UI-layer elements using Foundation tokens, not embedded in the image.</div>
+        </div>
+        <div class="dont-card">
+          <div class="dont-preview">
+            <div class="mock-card-sm" style="background:linear-gradient(135deg,#281418,#1A1428)">
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:4px">
+                <div style="width:50px;height:5px;background:rgba(255,255,255,.5);border-radius:1px;margin-bottom:3px"></div>
+                <div style="width:35px;height:4px;background:rgba(255,255,255,.3);border-radius:1px"></div>
+              </div>
+            </div>
+            <div class="mock-title-block">
+              <div class="mock-text-line" style="width:80%"></div>
+              <div class="mock-text-line" style="width:55%;opacity:.6"></div>
+            </div>
+          </div>
+          <div class="dont-label"><strong>✗ DON'T</strong>Duplicate text in both the art and the UI layer. When art has embedded title treatment, suppress the UI-layer title token.</div>
+        </div>
+      </div>
+
+      <div class="do-dont">
+        <div class="do-card">
+          <div class="do-preview">
+            <div style="display:flex;gap:8px;align-items:flex-end">
+              <div class="mock-card-sm" style="width:54px"></div>
+              <div class="mock-card-sm" style="width:54px"></div>
+              <div class="mock-card-sm" style="width:54px"></div>
+            </div>
+          </div>
+          <div class="do-label"><strong>✓ DO</strong>Use consistent 16:9 aspect ratio across a swimlane. All cards in the same row share the same variant.</div>
+        </div>
+        <div class="dont-card">
+          <div class="dont-preview">
+            <div style="display:flex;gap:6px;align-items:flex-end">
+              <div class="mock-card-sm" style="width:54px;aspect-ratio:16/9"></div>
+              <div class="mock-card-sm" style="width:40px;aspect-ratio:2/3;height:60px"></div>
+              <div class="mock-card-sm" style="width:54px;aspect-ratio:4/3"></div>
+            </div>
+          </div>
+          <div class="dont-label"><strong>✗ DON'T</strong>Mix aspect ratios within the same swimlane. Use the movie (2:3) variant only in dedicated movie rows.</div>
+        </div>
+      </div>
+
+      <div class="do-dont">
+        <div class="do-card">
+          <div class="do-preview">
+            <div class="mock-card-sm" style="width:80px">
+              <div style="position:absolute;inset:-2px;border:2px solid #4A9EFF;border-radius:7px"></div>
+            </div>
+          </div>
+          <div class="do-label"><strong>✓ DO</strong>Show the focus ring only when focus is active. Use the state-card-focused token — never custom override per component.</div>
+        </div>
+        <div class="dont-card">
+          <div class="dont-preview">
+            <div class="mock-card-sm" style="width:80px">
+              <div style="position:absolute;inset:0;border:3px solid rgba(255,255,0,.6);border-radius:5px"></div>
+            </div>
+          </div>
+          <div class="dont-label"><strong>✗ DON'T</strong>Create custom focus styles per card variant. All focus states must resolve from the Focus Ring atom and shared token.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- 7. Platform behavior -->
+    <div class="section" id="platform">
+      <div class="section-header">
+        <span class="section-num">07</span>
+        <h2 class="section-title">Platform Behavior</h2>
+      </div>
+      <p>The card component is the same across platforms — token values resolve differently per platform at build time. Roku (Brightscript) and JS/TVSDK maintain separate Figma frames and separate implementation outputs (Brightscript vs. JavaScript) but share identical token values. iOS and Android share the same UIKit token set.</p>
+
+      <div class="platform-grid">
+        <div class="platform-tile">
+          <div class="platform-tile-name"><span class="platform-pill p-tv">tvOS (UIKit)</span></div>
+          <div class="platform-row"><span class="platform-row-key">Ratio</span><span class="platform-row-val">16:9</span></div>
+          <div class="platform-row"><span class="platform-row-key">Focus</span><span class="platform-row-val">Ring (#4A9EFF)</span></div>
+          <div class="platform-row"><span class="platform-row-key">Hover</span><span class="platform-row-val">Focus only</span></div>
+          <div class="platform-row"><span class="platform-row-key">Title</span><span class="platform-row-val">type-label-md</span></div>
+          <div class="platform-row"><span class="platform-row-key">Min width</span><span class="platform-row-val">240px</span></div>
+        </div>
+        <div class="platform-tile">
+          <div class="platform-tile-name"><span class="platform-pill p-roku">Roku (Brightscript)</span></div>
+          <div class="platform-row"><span class="platform-row-key">Ratio</span><span class="platform-row-val">16:9</span></div>
+          <div class="platform-row"><span class="platform-row-key">Focus</span><span class="platform-row-val">Ring (#4A9EFF)</span></div>
+          <div class="platform-row"><span class="platform-row-key">Hover</span><span class="platform-row-val">Focus only</span></div>
+          <div class="platform-row"><span class="platform-row-key">Title</span><span class="platform-row-val">type-label-md</span></div>
+          <div class="platform-row"><span class="platform-row-key">Min width</span><span class="platform-row-val">200px</span></div>
+        </div>
+        <div class="platform-tile">
+          <div class="platform-tile-name"><span class="platform-pill p-roku">JS / TVSDK</span></div>
+          <div class="platform-row"><span class="platform-row-key">Ratio</span><span class="platform-row-val">16:9</span></div>
+          <div class="platform-row"><span class="platform-row-key">Focus</span><span class="platform-row-val">Ring (#4A9EFF)</span></div>
+          <div class="platform-row"><span class="platform-row-key">Hover</span><span class="platform-row-val">Focus only</span></div>
+          <div class="platform-row"><span class="platform-row-key">Title</span><span class="platform-row-val">type-label-md</span></div>
+          <div class="platform-row"><span class="platform-row-key">Min width</span><span class="platform-row-val">200px</span></div>
+        </div>
+        <div class="platform-tile">
+          <div class="platform-tile-name"><span class="platform-pill p-mob">iOS / Android</span></div>
+          <div class="platform-row"><span class="platform-row-key">Ratio</span><span class="platform-row-val">16:9 / 2:3*</span></div>
+          <div class="platform-row"><span class="platform-row-key">Focus</span><span class="platform-row-val">None (touch)</span></div>
+          <div class="platform-row"><span class="platform-row-key">Columns</span><span class="platform-row-val">2–3 across</span></div>
+          <div class="platform-row"><span class="platform-row-key">Title</span><span class="platform-row-val">type-label-sm</span></div>
+          <div class="platform-row"><span class="platform-row-key">Min width</span><span class="platform-row-val">120px</span></div>
+        </div>
+
+      </div>
+      <p style="font-size:11px;color:var(--text3)">* Movie rows resolve to 2:3 on iOS and Android via the <span style="font-family:var(--mono);color:var(--purple)">card-aspect-ratio-movie</span> token. All TV platforms resolve to 16:9. Roku (Brightscript) and JS/TVSDK have separate Figma frames and implementation outputs but share the same token values. iOS and Android share the same UIKit token set. Web platform to be added in a future sprint.</p>
+    </div>
+
+    <hr>
+
+    <!-- 8. Token references -->
+    <div class="section" id="tokens">
+      <div class="section-header">
+        <span class="section-num">08</span>
+        <h2 class="section-title">Token References</h2>
+      </div>
+      <p>Foundation tokens consumed by the showcard. Token names carry semantic meaning for agents and humans. Values resolve per platform at build time.</p>
+
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Token name</th>
+            <th>Category</th>
+            <th>tvOS</th>
+            <th>Roku (Brightscript)</th>
+            <th>JS / TVSDK</th>
+            <th>iOS / Android</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="token-name">card-aspect-ratio-primary</td>
+            <td>Layout</td>
+            <td class="token-value">16/9</td>
+            <td class="token-value">16/9</td>
+            <td class="token-value">16/9</td>
+            <td class="token-value">16/9</td>
+            <td>Base aspect ratio for standard content rows</td>
+          </tr>
+          <tr>
+            <td class="token-name">card-aspect-ratio-movie</td>
+            <td>Layout</td>
+            <td class="token-value">16/9</td>
+            <td class="token-value">16/9</td>
+            <td class="token-value">16/9</td>
+            <td class="token-value">2/3</td>
+            <td>Movie poster rows. iOS/Android resolve to 2:3. All TV platforms stay 16:9.</td>
+          </tr>
+          <tr>
+            <td class="token-name">card-corner-radius</td>
+            <td>Shape</td>
+            <td class="token-value">8px</td>
+            <td class="token-value">8px</td>
+            <td class="token-value">8px</td>
+            <td class="token-value">6px</td>
+            <td>Border radius of card container</td>
+          </tr>
+          <tr>
+            <td class="token-name">color-card-scrim</td>
+            <td>Color</td>
+            <td class="token-value"><span class="token-swatch" style="background:#001221"></span>#001221</td>
+            <td class="token-value"><span class="token-swatch" style="background:#001221"></span>#001221</td>
+            <td class="token-value"><span class="token-swatch" style="background:#001221"></span>#001221</td>
+            <td class="token-value"><span class="token-swatch" style="background:#001221"></span>#001221</td>
+            <td>Overlay scrim color #001221. Unfocused fixed height: 207px. Stops: 0%→0%, 65%→80%, 100%→90% opacity. Focused: gradient scales with card scale factor.</td>
+          </tr>
+          <tr>
+            <td class="token-name">color-progress-fill</td>
+            <td>Color</td>
+            <td class="token-value"><span class="token-swatch" style="background:#4A9EFF"></span>#4A9EFF</td>
+            <td class="token-value"><span class="token-swatch" style="background:#4A9EFF"></span>#4A9EFF</td>
+            <td class="token-value"><span class="token-swatch" style="background:#4A9EFF"></span>#4A9EFF</td>
+            <td class="token-value"><span class="token-swatch" style="background:#4A9EFF"></span>#4A9EFF</td>
+            <td>Continue watching progress bar fill. Thin blue line at bottom of DFTA panel.</td>
+          </tr>
+          <tr>
+            <td class="token-name">state-live-in-progress</td>
+            <td>State</td>
+            <td class="token-value"><span class="token-swatch" style="background:#E03030"></span>badge-red + pulse</td>
+            <td class="token-value"><span class="token-swatch" style="background:#E03030"></span>badge-red + pulse</td>
+            <td class="token-value"><span class="token-swatch" style="background:#E03030"></span>badge-red + pulse</td>
+            <td class="token-value"><span class="token-swatch" style="background:#E03030"></span>badge-red + pulse</td>
+            <td>Live content currently airing. Left badge: ⚡ LIVE blue pill with lightning bolt.</td>
+          </tr>
+          <tr>
+            <td class="token-name">state-recorded</td>
+            <td>State</td>
+            <td class="token-value"><span class="token-swatch" style="background:#E05050"></span>badge-outline-red</td>
+            <td class="token-value"><span class="token-swatch" style="background:#E05050"></span>badge-outline-red</td>
+            <td class="token-value"><span class="token-swatch" style="background:#E05050"></span>badge-outline-red</td>
+            <td class="token-value"><span class="token-swatch" style="background:#E05050"></span>badge-outline-red</td>
+            <td>DVR recording indicator. Left badge: ● REC red filled pill.</td>
+          </tr>
+          <tr>
+            <td class="token-name">state-expiring-soon</td>
+            <td>State</td>
+            <td class="token-value"><span class="token-swatch" style="background:#F0A030"></span>amber-banner</td>
+            <td class="token-value"><span class="token-swatch" style="background:#F0A030"></span>amber-banner</td>
+            <td class="token-value"><span class="token-swatch" style="background:#F0A030"></span>amber-banner</td>
+            <td class="token-value"><span class="token-swatch" style="background:#F0A030"></span>amber-banner</td>
+            <td>DVR content expiring. Right badge: ⏱ 48HR timer pill. Eyebrow → "EXPIRES [DATE] AT [TIME]".</td>
+          </tr>
+          <tr>
+            <td class="token-name">state-out-of-home</td>
+            <td>State</td>
+            <td colspan="4" class="token-value" style="color:var(--text2)">Art dimmed + compass right badge + eyebrow → "CONNECT TO WATCH" (all platforms)</td>
+            <td>OOH restriction. Art layer opacity reduced. Applies to all card styles.</td>
+          </tr>
+          <tr>
+            <td class="token-name">state-unentitled</td>
+            <td>State</td>
+            <td colspan="4" class="token-value" style="color:var(--text2)">Key right badge + eyebrow → "UPGRADE TO WATCH" (all platforms)</td>
+            <td>Subscription required. No art dimming.</td>
+          </tr>
+          <tr>
+            <td class="token-name">state-tvod</td>
+            <td>State</td>
+            <td colspan="4" class="token-value" style="color:var(--text2)">Price right badge (e.g. $19.99) + eyebrow → "AVAILABLE TO RENT" (all platforms)</td>
+            <td>Transactional content. Price shown on badge.</td>
+          </tr>
+          <tr>
+            <td class="token-name">state-blocked</td>
+            <td>State</td>
+            <td colspan="4" class="token-value" style="color:var(--text2)">Lock right badge only. Eyebrow unchanged. (all platforms)</td>
+            <td>Parental controls active. Art not dimmed. No eyebrow change.</td>
+          </tr>
+          <tr>
+            <td class="token-name">state-ota</td>
+            <td>State</td>
+            <td colspan="4" class="token-value" style="color:var(--text2)">OTA antenna right badge (active or missing variant). No eyebrow change. (all platforms)</td>
+            <td>Over-the-air content. Active: antenna icon. Missing: crossed antenna. No art dimming.</td>
+          </tr>
+          <tr>
+            <td class="token-name">badge-ranking-number</td>
+            <td>Badge</td>
+            <td colspan="4" class="token-value" style="color:var(--text2)">Numbered circle left badge (1, 2, 3…). Bottom-left. Trending contexts only.</td>
+            <td>Used in Trending Live and New &amp; Trending swimlanes. Drives rank display from data source.</td>
+          </tr>
+          <tr>
+            <td class="token-name">height-card-scrim</td>
+            <td>Layout</td>
+            <td class="token-value">207px</td>
+            <td class="token-value">207px</td>
+            <td class="token-value">207px</td>
+            <td class="token-value">207px</td>
+            <td>Overlay scrim fixed height (unfocused). 207px across all TV card sizes. Scales with card scale factor on focus.</td>
+          </tr>
+          <tr>
+            <td class="token-name">focus-ring-color</td>
+            <td>Interaction</td>
+            <td class="token-value"><span class="token-swatch" style="background:#4A9EFF"></span>#4A9EFF</td>
+            <td class="token-value"><span class="token-swatch" style="background:#4A9EFF"></span>#4A9EFF</td>
+            <td class="token-value"><span class="token-swatch" style="background:#4A9EFF"></span>#4A9EFF</td>
+            <td class="token-value" style="color:var(--text3)">none (touch)</td>
+            <td>Ring color #4A9EFF. TV remotes only. Never on touch.</td>
+          </tr>
+          <tr>
+            <td class="token-name">focus-ring-width</td>
+            <td>Interaction</td>
+            <td class="token-value">2.5px</td>
+            <td class="token-value">2.5px</td>
+            <td class="token-value">2.5px</td>
+            <td class="token-value" style="color:var(--text3)">none</td>
+            <td>Ring stroke width. TV platforms: 2.5px. iOS/Android: none (touch).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr>
+
+    <!-- 9. Accessibility -->
+    <div class="section" id="accessibility">
+      <div class="section-header">
+        <span class="section-num">09</span>
+        <h2 class="section-title">Accessibility</h2>
+      </div>
+
+      <p style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">tvOS / remote navigation</p>
+      <table style="margin-bottom:24px">
+        <thead>
+          <tr><th>Input</th><th>Action</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="key-badge">D-pad</span></td>
+            <td>Navigate between cards</td>
+            <td>Focus moves; focus ring renders; card scales to focused state</td>
+          </tr>
+          <tr>
+            <td><span class="key-badge">Select</span></td>
+            <td>Primary action</td>
+            <td>Navigate to UPP / begin playback depending on card type</td>
+          </tr>
+          <tr>
+            <td><span class="key-badge">Select</span> hold</td>
+            <td>Context menu</td>
+            <td>Opens action sheet (Record, Add to Watchlist, More Info)</td>
+          </tr>
+          <tr>
+            <td><span class="key-badge">Play/Pause</span></td>
+            <td>Express Play</td>
+            <td>Begins playback immediately without navigating to UPP</td>
+          </tr>
+          <tr>
+            <td><span class="key-badge">Back</span></td>
+            <td>Dismiss focus</td>
+            <td>Focus returns to swimlane header or previous focused element</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">ARIA &amp; screen reader</p>
+      <table style="margin-bottom:16px">
+        <thead>
+          <tr><th>Property</th><th>Value</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="token-name">role</td>
+            <td class="token-value">listitem</td>
+            <td>Card is always a child of a list (swimlane)</td>
+          </tr>
+          <tr>
+            <td class="token-name">aria-label</td>
+            <td class="token-value">"[Title], [State], [Eyebrow]"</td>
+            <td>e.g. "Monday Night Football, Live, ESPN". State precedes metadata.</td>
+          </tr>
+          <tr>
+            <td class="token-name">aria-describedby</td>
+            <td class="token-value">Card metadata ID</td>
+            <td>Points to hidden text containing full metadata for screen readers</td>
+          </tr>
+          <tr>
+            <td class="token-name">tabIndex</td>
+            <td class="token-value">0</td>
+            <td>All cards are keyboard/remote focusable. Never -1 in interactive contexts.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="rule">
+        <strong>Touch target rule:</strong> Minimum card tap area is 44×44pt on iOS per Apple HIG. On TV, the focusable area is the full card bounding box — no padding reduction.
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- 10. Specs -->
+    <div class="section" id="specs">
+      <div class="section-header">
+        <span class="section-num">10</span>
+        <h2 class="section-title">Specs &amp; Metrics</h2>
+      </div>
+      <p>All spacing and sizing values reference Foundation tokens, not raw pixel values. Token names are shown as annotations.</p>
+
+      <div class="spec-diagram">
+        <div style="position:relative">
+          <div class="spec-card-mock">
+            <div class="spec-scrim"></div>
+            <!-- badge mock -->
+            <div style="position:absolute;top:8px;left:8px;width:28px;height:10px;background:#E03030;border-radius:2px"></div>
+            <!-- logo mock -->
+            <div style="position:absolute;bottom:28px;left:10px;width:44px;height:11px;background:rgba(255,255,255,.8);border-radius:2px"></div>
+            <!-- title mock -->
+            <div style="position:absolute;bottom:10px;left:10px;right:10px;height:6px;background:rgba(255,255,255,.2);border-radius:2px"></div>
+            <!-- progress mock -->
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.15);border-radius:0 0 8px 8px">
+              <div style="height:100%;width:45%;background:#4A9EFF;border-radius:0 0 0 8px"></div>
+            </div>
+          </div>
+
+          <!-- Annotations -->
+          <div class="spec-annotation" style="top:-18px;left:0;color:var(--amber)">card-corner-radius → 8px</div>
+          <div class="spec-annotation" style="top:4px;right:-160px">space-card-badge-inset → 8px</div>
+          <div class="spec-annotation" style="bottom:38px;right:-150px">space-card-dfta-bottom → 10px</div>
+          <div class="spec-annotation" style="bottom:20px;right:-130px">type-card-title (2-line max)</div>
+          <div class="spec-annotation" style="bottom:-18px;left:0;color:var(--amber)">height-card-progress → 3px</div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Property</th><th>Token</th><th>tvOS</th><th>Roku</th><th>JS / TVSDK</th><th>iOS / Android</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Corner radius</td>
+            <td class="token-name">card-corner-radius</td>
+            <td>8px</td><td>8px</td><td>8px</td><td>6px</td>
+          </tr>
+          <tr>
+            <td>Badge inset (top/left)</td>
+            <td class="token-name">space-card-badge-inset</td>
+            <td>8px</td><td>8px</td><td>8px</td><td>6px</td>
+          </tr>
+          <tr>
+            <td>DFTA bottom padding</td>
+            <td class="token-name">space-card-dfta-bottom</td>
+            <td>10px</td><td>10px</td><td>10px</td><td>8px</td>
+          </tr>
+          <tr>
+            <td>DFTA side padding</td>
+            <td class="token-name">space-card-dfta-side</td>
+            <td>10px</td><td>10px</td><td>10px</td><td>8px</td>
+          </tr>
+          <tr>
+            <td>Progress bar height</td>
+            <td class="token-name">height-card-progress</td>
+            <td>3px</td><td>3px</td><td>3px</td><td>3px</td>
+          </tr>
+          <tr>
+            <td>Focus ring offset</td>
+            <td class="token-name">focus-ring-offset</td>
+            <td>3px</td><td>3px</td><td>3px</td><td style="color:var(--text3)">n/a</td>
+          </tr>
+          <tr>
+            <td>Title max lines</td>
+            <td class="token-name">card-title-max-lines</td>
+            <td>2</td><td>2</td><td>2</td><td>2</td>
+          </tr>
+          <tr>
+            <td>Minimum card width</td>
+            <td class="token-name">card-min-width</td>
+            <td>240px</td><td>200px</td><td>200px</td><td>120px</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr>
+
+    <!-- 11. Content Guidelines -->
+    <div class="section" id="content">
+      <div class="section-header">
+        <span class="section-num">11</span>
+        <h2 class="section-title">Content Guidelines</h2>
+      </div>
+      <p>Rules for copy within the showcard. These apply across all variants and platforms unless noted.</p>
+
+      <table>
+        <thead>
+          <tr><th>Field</th><th>Max length</th><th>Casing</th><th>Truncation</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-name">Title</td>
+            <td>2 lines</td>
+            <td>Title case</td>
+            <td>Ellipsis at line 2</td>
+            <td>Use show/movie title as provided by Gracenote. Never abbreviate.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Eyebrow</td>
+            <td>1 line · ~30 chars</td>
+            <td>All caps</td>
+            <td>Truncate at container edge</td>
+            <td>Default format: NETWORK · GENRE or time info. Restriction overrides: OOH → "CONNECT TO WATCH", Unentitled → "UPGRADE TO WATCH", TVOD → "AVAILABLE TO RENT". Recordings → "RECORDED DATE" / "RECORDING NOW". Amber (#C8A84B) color always.</td>
+          </tr>
+          <tr>
+            <td class="td-name">State badge label</td>
+            <td>8 chars</td>
+            <td>All caps</td>
+            <td>Do not truncate — shorten copy instead</td>
+            <td>LIVE, NEW, REC, RERUN, UPCOMING. Never use lowercase.</td>
+          </tr>
+          <tr>
+            <td class="td-name">Metadata badge label</td>
+            <td>6 chars</td>
+            <td>All caps</td>
+            <td>Do not truncate</td>
+            <td>4K, HDR, CC. Price format: $4.99. Episode count: "3 Episodes".</td>
+          </tr>
+          <tr>
+            <td class="td-name">Expiry string</td>
+            <td>1 line · ~20 chars</td>
+            <td>Sentence case</td>
+            <td>Truncate at container edge</td>
+            <td>Format: "Expires in X days". Threshold for display: ≤7 days remaining.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr>
+
+    <!-- 12. Related Components -->
+    <div class="section" id="related">
+      <div class="section-header">
+        <span class="section-num">12</span>
+        <h2 class="section-title">Related Components</h2>
+      </div>
+      <p>Components that compose the showcard, or organisms and templates that consume it.</p>
+
+      <table>
+        <thead>
+          <tr><th>Component</th><th>Level</th><th>Relationship</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-name">Badge</td>
+            <td><span class="platform-pill p-tv">Atom</span></td>
+            <td>Sub-component — state, quality, access, and metadata badges all use the Badge atom</td>
+          </tr>
+          <tr>
+            <td class="td-name">Logo</td>
+            <td><span class="platform-pill p-tv">Atom</span></td>
+            <td>Sub-component — network or product logo overlaid on art</td>
+          </tr>
+          <tr>
+            <td class="td-name">Button (Tertiary)</td>
+            <td><span class="platform-pill p-tv">Atom</span></td>
+            <td>Sub-component — Express Play action button on focus/hover</td>
+          </tr>
+          <tr>
+            <td class="td-name">Focus Ring</td>
+            <td><span class="platform-pill p-tv">Atom</span></td>
+            <td>Sub-component — Focus Ring atom governs all card focus states</td>
+          </tr>
+          <tr>
+            <td class="td-name">Text Lockup (DFTA)</td>
+            <td><span class="platform-pill p-mob">Molecule</span></td>
+            <td>Sub-component — DFTA text lockup (logo + eyebrow + title) is a distinct molecule used inside Flyout and Overlay variants</td>
+          </tr>
+          <tr>
+            <td class="td-name">Swimlane</td>
+            <td><span class="platform-pill p-roku">Organism</span></td>
+            <td>Consumer — horizontal scrolling shelf that contains rows of showcards</td>
+          </tr>
+          <tr>
+            <td class="td-name">Guide Grid</td>
+            <td><span class="platform-pill p-roku">Organism</span></td>
+            <td>Consumer — guide grid contains Network Cell and Program Cell variants of the showcard</td>
+          </tr>
+          <tr>
+            <td class="td-name">Collection (Grid)</td>
+            <td><span class="platform-pill p-roku">Organism</span></td>
+            <td>Consumer — multi-column grid layout for View All and Library surfaces</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Active nav on scroll
+  const sections = document.querySelectorAll('.section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  const sectionIds = ['overview','anatomy','variants','states','subcomponents','usage','platform','tokens','accessibility','specs','content','related'];
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+
+  // Variant card selection
+  document.querySelectorAll('.variant-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.variant-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+    });
+  });
+</script>
+
+</body>
+</html>
